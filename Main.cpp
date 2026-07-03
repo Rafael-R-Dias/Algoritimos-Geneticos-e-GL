@@ -1,6 +1,7 @@
 #include "Temporizador.hpp"
 #include <cmath>
 #include "Ponto.h"
+#include "Circulo.hpp"
 
 #ifdef __linux__
 #include <GL/glut.h>
@@ -15,6 +16,7 @@ Ponto p1 = Ponto(-25.0f, -25.0f);
 Ponto p2 = Ponto(25.0f, -25.0f);
 Ponto p3 = Ponto(25.0f, 25.0f);
 Ponto p4 = Ponto(-25.0f, 25.0f);
+Circulo circ = Circulo(Ponto(0.0f,0.0f), 10.0);
 
 void init(){
     glClearColor(0.5f, 0.5f, 1.0f, 1.0f); // Fundo neutro escuro para nao contaminar paredes/teto
@@ -27,6 +29,7 @@ void init(){
     glShadeModel(GL_SMOOTH);
     //glShadeModel(GL_FLAT);
     //glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
 
     glColorMaterial ( GL_FRONT, GL_AMBIENT_AND_DIFFUSE );
 
@@ -35,6 +38,19 @@ void init(){
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+void desenhaCirculo(Circulo c){
+    glColor3f(0.75f, 0.0f, 0.0f);
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(c.posicao().x, c.posicao().y);
+    float angulo = 0.0f;
+    for(int i = 0; i <= 32; i++){
+        angulo = 2.0f * M_PI * i/32;
+        glVertex2f(c.posicao().x + c.raio() * cos(angulo),
+                   c.posicao().y + c.raio() * sin(angulo));
+    }
+    glEnd();
 }
 
 void display(){
@@ -46,13 +62,17 @@ void display(){
 	glMatrixMode(GL_MODELVIEW);
 
     glPushMatrix();
+
+    /*glColor3f(0.75f, 0.0f, 0.0f);
     glBegin(GL_QUADS);
-    glColor3f(0.75f, 0.0f, 0.0f);
     glVertex2f(p1.x, p1.y);
     glVertex2f(p2.x, p2.y);
     glVertex2f(p3.x, p3.y);
     glVertex2f(p4.x, p4.y);
-    glEnd();
+    glEnd();*/
+
+    desenhaCirculo(circ);
+
     glPopMatrix();
 
     glutSwapBuffers();
@@ -139,7 +159,6 @@ void reshape(int w, int h){
     glLoadIdentity();
 
 	//PosicUser();
-
 }
 
 void animate(){
