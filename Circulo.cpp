@@ -2,17 +2,17 @@
 #include <cmath>
 
 Circulo::Circulo(){
-    this->posicao_ = Ponto(0.0f,0.0f);
+    this->posicao_ = Vertice(0.0f,0.0f);
     this->raio_ = 0.0;
 }
 
-Circulo::Circulo(Ponto pos, double r){
+Circulo::Circulo(Vertice pos, double r){
     this->posicao_ = pos;
     if(r < 0.0) r *= -1.0;
     this->raio_ = r;
 }
 
-Ponto Circulo::posicao(){return this->posicao_;}
+Vertice Circulo::posicao(){return this->posicao_;}
 
 double Circulo::raio(){return this->raio_;}
 

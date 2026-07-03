@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-vector<Ponto>* leArq(const char* fname, unsigned int limit){
+vector<Vertice>* leArq(const char* fname, unsigned int limit){
     ifstream arq = ifstream(fname);
 
     if(!arq.is_open()){
@@ -11,7 +11,7 @@ vector<Ponto>* leArq(const char* fname, unsigned int limit){
         exit(0);
     }
 
-    vector<Ponto>* v = new vector<Ponto>();
+    vector<Vertice>* v = new vector<Vertice>();
 
     string linha;
     string coluna;
@@ -34,7 +34,7 @@ vector<Ponto>* leArq(const char* fname, unsigned int limit){
         y = stod(coluna);
         y += (51.0 + 5.0/32.0);
         y *= 350.0;
-        v->push_back(Ponto(x,y));
+        v->push_back(Vertice(x,y));
         if(v->size() >= limit) break;
     }
 

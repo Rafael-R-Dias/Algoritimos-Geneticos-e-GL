@@ -6,13 +6,13 @@ Estado::Estado(){
     this->dist = 0.0;
 }
 
-Estado::Estado(vector<Ponto>* v){
+Estado::Estado(vector<Vertice>* v){
     this->vec = v;
     this->calculaDist();
 }
 
 Estado::Estado(const Estado& other){
-    if(other.vec) this->vec = new vector<Ponto>(*other.vec);
+    if(other.vec) this->vec = new vector<Vertice>(*other.vec);
     else this->vec = nullptr;
     
     this->dist = other.dist;
@@ -30,12 +30,12 @@ void Estado::calculaDist(){
     this->dist += calculaDistancia((*this->vec)[(*this->vec).size()-1], (*this->vec)[0]);
 }
 
-Ponto Estado::get(int i){
+Vertice Estado::get(int i){
     return this->vec->at(i);
 }
 
 Estado Estado::geraUmMelhor(){
-    vector<Ponto>* m = new vector<Ponto>(*this->vec);
+    vector<Vertice>* m = new vector<Vertice>(*this->vec);
     Estado melhor;
     melhor.vec = m;
     melhor.dist = this->dist;
@@ -50,7 +50,7 @@ Estado Estado::geraUmMelhor(){
             i2 = distr(gen);
         }while(i1 == i2);
 
-        Ponto aux = (*m)[i1];
+        Vertice aux = (*m)[i1];
         (*m)[i1] = (*m)[i2];
         (*m)[i2] = aux;
         melhor.calculaDist();
@@ -68,7 +68,7 @@ Estado& Estado::operator=(const Estado& other){
     if(this == &other) return *this;
 
     delete this->vec;
-    if(other.vec) this->vec = new vector<Ponto>(*other.vec);
+    if(other.vec) this->vec = new vector<Vertice>(*other.vec);
     else this->vec = nullptr;
     
     this->dist = other.dist;

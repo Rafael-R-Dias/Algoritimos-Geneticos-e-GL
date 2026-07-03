@@ -1,48 +1,48 @@
-#include "Ponto.hpp"
+#include "Vertice.hpp"
 
-Ponto::Ponto(){
+Vertice::Vertice(){
     x=y=z=0;
 }
 
-Ponto::Ponto(double x, double y, double z){
+Vertice::Vertice(double x, double y, double z){
     this->x = x;
     this->y = y;
     this->z = z;
 }
 
-void Ponto::set(double x, double y, double z){
+void Vertice::set(double x, double y, double z){
     this->x = x;
     this->y = y;
     this->z = z;
 }
 
-void Ponto::imprime(){
+void Vertice::imprime(){
     cout << "(" << x << ", " << y << ", " << z <<")" << flush;
 }
 
-void Ponto::imprime(char const *msg){
+void Vertice::imprime(char const *msg){
     cout << msg;
     imprime();
 }
 
-void Ponto::imprime(char const *msgAntes, char const *msgDepois){
+void Vertice::imprime(char const *msgAntes, char const *msgDepois){
     imprime(msgAntes);
     cout << msgDepois;
 }
 
-void Ponto::multiplica(double x, double y, double z){
+void Vertice::multiplica(double x, double y, double z){
     this->x *= x;
     this->y *= y;
     this->z *= z;
 }
 
-void Ponto::soma(double x, double y, double z){
+void Vertice::soma(double x, double y, double z){
     this->x += x;
     this->y += y;
     this->z += z;
 }
 
-void Ponto::rotacionaZ(float angulo){
+void Vertice::rotacionaZ(float angulo){
     float xr, yr;
     //cout << "Angulo: " << angulo << " ";
     double anguloRad = angulo * 3.14159265359/180.0;
@@ -54,7 +54,7 @@ void Ponto::rotacionaZ(float angulo){
 }
 
 
-void Ponto::rotacionaY(float angulo){
+void Vertice::rotacionaY(float angulo){
     float xr, zr;
     double anguloRad = angulo* 3.14159265359/180.0;
     xr =  x*cos(anguloRad) + z*sin(anguloRad);
@@ -63,7 +63,7 @@ void Ponto::rotacionaY(float angulo){
     z = zr;
 }
 
-void Ponto::rotacionaX(float angulo){
+void Vertice::rotacionaX(float angulo){
     float yr, zr;
     double anguloRad = angulo* 3.14159265359/180.0;
     yr =  y*cos(anguloRad) - z*sin(anguloRad);
@@ -71,11 +71,11 @@ void Ponto::rotacionaX(float angulo){
     y = yr;
     z = zr;
 }
-double Ponto::modulo(){
+double Vertice::modulo(){
     return sqrt(x*x+y*y+z*z);
 }
 
-void Ponto::versor(){
+void Vertice::versor(){
     float m = modulo();
     x /= m;
     y /= m;
@@ -83,8 +83,8 @@ void Ponto::versor(){
 }
 
 
-Ponto ObtemMaximo(Ponto P1, Ponto P2){
-    Ponto Max;
+Vertice ObtemMaximo(Vertice P1, Vertice P2){
+    Vertice Max;
     
     Max.x = (P2.x > P1.x) ? P2.x : P1.x;
     Max.y = (P2.y > P1.y) ? P2.y : P1.y;
@@ -92,8 +92,8 @@ Ponto ObtemMaximo(Ponto P1, Ponto P2){
     return Max;
 }
 
-Ponto ObtemMinimo(Ponto P1, Ponto P2){
-    Ponto Min;
+Vertice ObtemMinimo(Vertice P1, Vertice P2){
+    Vertice Min;
     
     Min.x = (P2.x < P1.x) ? P2.x : P1.x;
     Min.y = (P2.y < P1.y) ? P2.y : P1.y;
@@ -101,15 +101,15 @@ Ponto ObtemMinimo(Ponto P1, Ponto P2){
     return Min;
 }
 
-bool operator==(Ponto P1, Ponto P2){
+bool operator==(Vertice P1, Vertice P2){
     if (P1.x != P2.x) return false;
     if (P1.y != P2.y) return false;
     if (P1.z != P2.z) return false;
     return true;
 }
 
-Ponto operator+(Ponto P1, Ponto P2){
-    Ponto temp;
+Vertice operator+(Vertice P1, Vertice P2){
+    Vertice temp;
     temp = P1;
     temp.x += P2.x;
     temp.y += P2.y;
@@ -117,8 +117,8 @@ Ponto operator+(Ponto P1, Ponto P2){
     return temp;
 }
 
-Ponto operator-(Ponto P1, Ponto P2){
-    Ponto temp;
+Vertice operator-(Vertice P1, Vertice P2){
+    Vertice temp;
     temp = P1;
     temp.x -= P2.x;
     temp.y -= P2.y;
@@ -126,27 +126,27 @@ Ponto operator-(Ponto P1, Ponto P2){
     return temp;
 }
 
-Ponto operator*(Ponto P1, double k){
-    Ponto temp;
+Vertice operator*(Vertice P1, double k){
+    Vertice temp;
     temp.x = P1.x * k;
     temp.y = P1.y * k;
     temp.z = P1.z * k;
     return temp;
 }
 
-Ponto operator-(Ponto P1){
+Vertice operator-(Vertice P1){
     return P1 * -1;
 }
 // **********************************************************************
 //    Calcula o produto escalar entre os vetores V1 e V2
 // **********************************************************************
-double ProdEscalar(Ponto v1, Ponto v2){
+double ProdEscalar(Vertice v1, Vertice v2){
     return v1.x*v2.x + v1.y*v2.y+ v1.z*v2.z;
 }
 // **********************************************************************
 //    Calcula o produto vetorial entre os vetores V1 e V2
 // **********************************************************************
-void ProdVetorial (Ponto v1, Ponto v2, Ponto &vresult){
+void ProdVetorial (Vertice v1, Vertice v2, Vertice &vresult){
     vresult.x = v1.y * v2.z - (v1.z * v2.y);
     vresult.y = v1.z * v2.x - (v1.x * v2.z);
     vresult.z = v1.x * v2.y - (v1.y * v2.x);
@@ -166,7 +166,7 @@ long int ContadorInt=0;
 /* t: valor do parâmetro no ponto de interseção (sobre a reta MN)         */
 /*                                                                        */
 /* ********************************************************************** */
-int intersec2d(Ponto k, Ponto l, Ponto m, Ponto n, double &s, double &t){
+int intersec2d(Vertice k, Vertice l, Vertice m, Vertice n, double &s, double &t){
     double det;
 
     det = (n.x - m.x) * (l.y - k.y)  -  (n.y - m.y) * (l.x - k.x);
@@ -182,7 +182,7 @@ int intersec2d(Ponto k, Ponto l, Ponto m, Ponto n, double &s, double &t){
 // **********************************************************************
 //
 // **********************************************************************
-bool HaInterseccao(Ponto k, Ponto l, Ponto m, Ponto n){
+bool HaInterseccao(Vertice k, Vertice l, Vertice m, Vertice n){
     int ret;
     double s,t;
     
@@ -211,7 +211,7 @@ long int getContadorInt(){
 // **********************************************************************
 //
 // **********************************************************************
-double calculaDistancia(Ponto P, Ponto Q){
+double calculaDistancia(Vertice P, Vertice Q){
     float dx, dy, dz;
     
     dx = P.x - Q.x;
@@ -224,8 +224,8 @@ double calculaDistancia(Ponto P, Ponto Q){
 // **********************************************************************
 // int lado(Ponto P1, Ponto P2, Ponto A)
 // **********************************************************************
-int lado(Ponto P1, Ponto P2, Ponto A){
-    Ponto V1, V2, V3;
+int lado(Vertice P1, Vertice P2, Vertice A){
+    Vertice V1, V2, V3;
     V1 = P2-P1;
     V2 = A-P1;
     ProdVetorial (V1, V2, V3);

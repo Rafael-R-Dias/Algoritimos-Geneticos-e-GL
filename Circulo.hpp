@@ -9,8 +9,8 @@ class Circulo : FormaGeometrica2D{
 
     public:
     Circulo();
-    Circulo(Ponto p, double r);
-    Ponto posicao() override;
+    Circulo(Vertice p, double r);
+    Vertice posicao() override;
     double raio();
     double area() override;
     double perimetro() override;

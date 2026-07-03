@@ -2,20 +2,20 @@
 #define ESTADO_HPP
 
 #include <vector>
-#include "Ponto.hpp"
+#include "Vertice.hpp"
 
 using namespace std;
 
 class Estado{
     public:
-    vector<Ponto>* vec;
+    vector<Vertice>* vec;
     long double dist;
     Estado();
-    Estado(vector<Ponto>* v);
+    Estado(vector<Vertice>* v);
     Estado(const Estado& other);
     ~Estado();
     void calculaDist();
-    Ponto get(int i);
+    Vertice get(int i);
     Estado geraUmMelhor();
     Estado& operator=(const Estado& other);
 };

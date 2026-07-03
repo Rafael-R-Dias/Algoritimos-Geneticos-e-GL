@@ -1,16 +1,16 @@
-#ifndef Ponto_hpp
-#define Ponto_hpp
+#ifndef VERTICE_HPP
+#define VERTICE_HPP
 
 #include <iostream>
 #include <cmath>
 using namespace std;
 
-class Ponto{
+class Vertice{
 
 public:
     double x,y,z;
-    Ponto();
-    Ponto(double x, double y, double z=0);
+    Vertice();
+    Vertice(double x, double y, double z=0);
     void set(double x, double y, double z=0);
     void imprime();
     void imprime(char const *msg);
@@ -25,25 +25,25 @@ public:
 } ;
 
 
-Ponto ObtemMinimo (Ponto P1, Ponto P2);
+Vertice ObtemMinimo (Vertice P1, Vertice P2);
 
-Ponto ObtemMaximo (Ponto P1, Ponto P2);
+Vertice ObtemMaximo (Vertice P1, Vertice P2);
 
-bool operator==(Ponto P1, Ponto P2);
-Ponto operator+(Ponto P1, Ponto P2);
-Ponto operator- (Ponto P1, Ponto P2);
-Ponto operator* (Ponto P1, double k);
-Ponto operator-(Ponto P1);
+bool operator==(Vertice P1, Vertice P2);
+Vertice operator+(Vertice P1, Vertice P2);
+Vertice operator- (Vertice P1, Vertice P2);
+Vertice operator* (Vertice P1, double k);
+Vertice operator-(Vertice P1);
 
-double ProdEscalar(Ponto v1, Ponto v2);
-void ProdVetorial (Ponto v1, Ponto v2, Ponto &vresult);
-int intersec2d(Ponto k, Ponto l, Ponto m, Ponto n, double &s, double &t);
-bool HaInterseccao(Ponto k, Ponto l, Ponto m, Ponto n);
+double ProdEscalar(Vertice v1, Vertice v2);
+void ProdVetorial (Vertice v1, Vertice v2, Vertice &vresult);
+int intersec2d(Vertice k, Vertice l, Vertice m, Vertice n, double &s, double &t);
+bool HaInterseccao(Vertice k, Vertice l, Vertice m, Vertice n);
 
 long int getContadorInt();
 void resetContadorInt();
 
-int lado(Ponto P1, Ponto P2, Ponto A); // retorna uma das constantes a seguir
+int lado(Vertice P1, Vertice P2, Vertice A); // retorna uma das constantes a seguir
 
 enum{
     ESQUERDA,
@@ -52,5 +52,5 @@ enum{
 };
 
 
-double calculaDistancia(Ponto P, Ponto Q);
+double calculaDistancia(Vertice P, Vertice Q);
 #endif /* Ponto_hpp */
