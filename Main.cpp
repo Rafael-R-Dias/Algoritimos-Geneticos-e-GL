@@ -19,7 +19,7 @@ Estado estado;
 Estado prox;
 
 void init(){
-    estado = Estado(leArq("stops.txt", 500u));
+    estado = Estado(leArq("stops.txt", 550u));
     cout << "arquivo lido" << endl;
 
     glClearColor(0.5f, 0.5f, 1.0f, 1.0f); // Fundo neutro escuro para nao contaminar paredes/teto
@@ -80,7 +80,7 @@ void display(){
     glPushMatrix();
     //cout << "a desenhar estado" << endl;
     desenhaEstado(estado);
-    cout << estado.dist << endl;
+    //cout << estado.dist << endl;
     //cout << "estado desenhado" << endl;
     prox = estado.geraUmMelhor();
     estado = prox;
