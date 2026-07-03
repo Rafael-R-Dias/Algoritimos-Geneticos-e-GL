@@ -1,7 +1,7 @@
 #ifndef FORMAGEOMETRICA_HPP
 #define FORMAGEOMETRICA_HPP
 
-#include "Ponto.h"
+#include "Ponto.hpp"
 
 class FormaGeometrica2D{
     protected:

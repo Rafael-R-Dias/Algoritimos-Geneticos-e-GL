@@ -1,11 +1,3 @@
-//
-//  Ponto.h
-//  OpenGLTest
-//
-//  Created by Márcio Sarroglia Pinho on 18/08/20.
-//  Copyright © 2020 Márcio Sarroglia Pinho. All rights reserved.
-//
-
 #ifndef Ponto_hpp
 #define Ponto_hpp
 
@@ -13,13 +5,13 @@
 #include <cmath>
 using namespace std;
 
-class Ponto {
+class Ponto{
 
 public:
-    float x,y,z;
-    Ponto ();
-    Ponto(float x, float y, float z=0);
-    void set(float x, float y, float z=0);
+    double x,y,z;
+    Ponto();
+    Ponto(double x, double y, double z=0);
+    void set(double x, double y, double z=0);
     void imprime();
     void imprime(char const *msg);
     void imprime(char const *msgAntes, char const *msgDepois);
@@ -40,7 +32,7 @@ Ponto ObtemMaximo (Ponto P1, Ponto P2);
 bool operator==(Ponto P1, Ponto P2);
 Ponto operator+(Ponto P1, Ponto P2);
 Ponto operator- (Ponto P1, Ponto P2);
-Ponto operator* (Ponto P1, float k);
+Ponto operator* (Ponto P1, double k);
 Ponto operator-(Ponto P1);
 
 double ProdEscalar(Ponto v1, Ponto v2);

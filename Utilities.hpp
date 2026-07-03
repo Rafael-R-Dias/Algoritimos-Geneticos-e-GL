@@ -2,10 +2,10 @@
 #define UTILITIES_HPP
 
 #include <vector>
-#include "Ponto.h"
+#include "Ponto.hpp"
 
 using namespace std;
 
-vector<Ponto>* leArq(const char* fname);
+vector<Ponto>* leArq(const char* fname, unsigned int limit);
 
 #endif

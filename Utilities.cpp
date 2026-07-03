@@ -2,9 +2,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <iostream>
 
-vector<Ponto>* leArq(const char* fname){
+vector<Ponto>* leArq(const char* fname, unsigned int limit){
     ifstream arq = ifstream(fname);
 
     if(!arq.is_open()){
@@ -16,7 +15,7 @@ vector<Ponto>* leArq(const char* fname){
 
     string linha;
     string coluna;
-    float x,y;
+    double x,y;
     getline(arq, linha);
     while(getline(arq, linha)){
         stringstream ss(linha);
@@ -27,15 +26,16 @@ vector<Ponto>* leArq(const char* fname){
         //cout << "  nome: " << coluna;
         getline(ss, coluna, ',');
         //cout << "  x: " << coluna;
-        x = stof(coluna);
-        x += 30.0f;
-        x *= 20.0f;
+        x = stod(coluna);
+        x += (30.0 + 6.0/64.0);
+        x *= 350.0;
         getline(ss, coluna, ',');
         //cout << "  y: " << coluna << endl;
-        y = stof(coluna);
-        y += 50.0f;
-        y *= 20.0f;
+        y = stod(coluna);
+        y += (51.0 + 5.0/32.0);
+        y *= 350.0;
         v->push_back(Ponto(x,y));
+        if(v->size() >= limit) break;
     }
 
     arq.close();
