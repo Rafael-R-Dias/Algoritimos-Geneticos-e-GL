@@ -1,3 +1,6 @@
+#ifndef FORMAGEOMETRICA_HPP
+#define FORMAGEOMETRICA_HPP
+
 #include "Ponto.h"
 
 class FormaGeometrica2D{
@@ -11,3 +14,5 @@ class FormaGeometrica2D{
     virtual double area();
     virtual double perimetro();
 };
+
+#endif

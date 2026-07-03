@@ -1,3 +1,6 @@
+#ifndef CIRCULO_HPP
+#define CIRCULO_HPP
+
 #include "FormaGeometrica2D.hpp"
 
 class Circulo : FormaGeometrica2D{
@@ -12,3 +15,5 @@ class Circulo : FormaGeometrica2D{
     double area() override;
     double perimetro() override;
 };
+
+#endif

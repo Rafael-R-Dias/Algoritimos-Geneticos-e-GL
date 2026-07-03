@@ -1,13 +1,11 @@
 #include "Temporizador.hpp"
 #include <cmath>
-#include "Ponto.h"
 #include "Circulo.hpp"
+#include "Utilities.hpp"
 
 #ifdef __linux__
 #include <GL/glut.h>
 #endif
-
-using namespace std;
 
 GLfloat AspectRatio;
 Temporizador temp_animate = Temporizador();
@@ -17,8 +15,11 @@ Ponto p2 = Ponto(25.0f, -25.0f);
 Ponto p3 = Ponto(25.0f, 25.0f);
 Ponto p4 = Ponto(-25.0f, 25.0f);
 Circulo circ = Circulo(Ponto(0.0f,0.0f), 10.0);
+vector<Ponto>* paradas;
 
 void init(){
+    paradas = leArq("stops.txt");
+
     glClearColor(0.5f, 0.5f, 1.0f, 1.0f); // Fundo neutro escuro para nao contaminar paredes/teto
 
     glClearDepth(1.0);
@@ -71,79 +72,15 @@ void display(){
     glVertex2f(p4.x, p4.y);
     glEnd();*/
 
-    desenhaCirculo(circ);
+    for(Ponto p: *paradas){
+        desenhaCirculo(Circulo(p, 0.5));
+    }
+    //desenhaCirculo(circ);
 
     glPopMatrix();
 
     glutSwapBuffers();
 }
-
-/*void MygluPerspective(float fieldOfView, float aspect, float zNear, float zFar )
-{
-    //https://stackoverflow.com/questions/2417697/gluperspective-was-removed-in-opengl-3-1-any-replacements/2417756#2417756
-    // The following code is a fancy bit of math that is equivilant to calling:
-    // gluPerspective( fieldOfView/2.0f, width/height , 0.1f, 255.0f )
-    // We do it this way simply to avoid requiring glu.h
-    //GLfloat zNear = 0.1f;
-    //GLfloat zFar = 255.0f;
-    //GLfloat aspect = float(width)/float(height);
-    GLfloat fH = tan( float(fieldOfView / 360.0f * 3.14159f) ) * zNear;
-    GLfloat fW = fH * aspect;
-    glFrustum( -fW, fW, -fH, fH, zNear, zFar );
-}
-
-void PosicUser(){
-    // Define os parametros da projecao Perspectiva
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    // Define o volume de visualizacao sempre a partir da posicao do
-    // observador
-    //ModoDeProjecao == 0
-    if (true)
-        glOrtho(-64.0, 63.0, -64.0, 64.0, 0.0, 10.0); // Projecao paralela Orthografica
-    //else MygluPerspective(90,AspectRatio,0.01,200.0f); // Projecao perspectiva
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    //gluLookAt(0.0f,0.0f,10.0f,
-      //        0.0f,0.0f,0.0f,
-        //      0.0f,1.0f,0.0f);
-    /*switch(visualizacao){
-        case 1:
-            if(jogador.velocidade == 0.0f){
-                gluLookAt(jogador.posicao.x+jogador.direcao.x*0.15f, jogador.posicao.y+1.6f, jogador.posicao.z+jogador.direcao.z*0.15f,
-                        jogador.posicao.x+jogador.direcao.x, jogador.posicao.y+jogador.direcao.y+1.6f, jogador.posicao.z+jogador.direcao.z,
-                        0,1,0);
-            }else{
-                gluLookAt(jogador.posicao.x+jogador.direcao.x*0.15f*(jogador.velocidade/1.8f), jogador.posicao.y+1.6f, jogador.posicao.z+jogador.direcao.z*0.15f*(jogador.velocidade/1.8f),
-                        jogador.posicao.x+jogador.direcao.x, jogador.posicao.y+jogador.direcao.y+1.6f, jogador.posicao.z+jogador.direcao.z,
-                        0,1,0);
-            }
-            
-            break;
-
-        case 3:
-            if(_3p_segue_jogador){
-                // visao top-down seguindo jogador
-                gluLookAt(jogador.posicao.x, 35.0f, jogador.posicao.z,
-                          jogador.posicao.x, 0.0f, jogador.posicao.z,
-                          0, 0, -1.0f);
-            }else{
-                // visao top-down fixa olhando o centro do labirinto
-                gluLookAt(posicao_camera_3_pessoa.x, 35.0f, posicao_camera_3_pessoa.z,
-                          49.5f, 0.0f, 49.5f,
-                          0, 0, -1.0f);
-            }
-            break;
-        
-        default:
-            cout << "Modo de visualizacao invalido.";
-            exit(0);
-    }
-}*/
 
 void reshape(int w, int h){
 
@@ -157,8 +94,6 @@ void reshape(int w, int h){
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-	//PosicUser();
 }
 
 void animate(){
