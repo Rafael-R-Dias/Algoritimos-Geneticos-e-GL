@@ -1,5 +1,4 @@
 #include "Circulo.hpp"
-#include <cmath>
 
 Circulo::Circulo(){
     this->posicao_ = Vertice(0.0f,0.0f);

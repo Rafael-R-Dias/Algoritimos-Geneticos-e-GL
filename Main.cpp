@@ -1,4 +1,3 @@
-#include "Temporizador.hpp"
 #include "Circulo.hpp"
 #include "Utilities.hpp"
 #include "Estado.hpp"
@@ -80,7 +79,7 @@ void display(){
     glPushMatrix();
     //cout << "a desenhar estado" << endl;
     desenhaEstado(estado);
-    //cout << estado.dist << endl;
+    cout << estado.dist << endl;
     //cout << "estado desenhado" << endl;
     prox = estado.geraUmMelhor();
     estado = prox;

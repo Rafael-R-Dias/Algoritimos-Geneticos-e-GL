@@ -4,11 +4,13 @@
 Estado::Estado(){
     this->vec = nullptr;
     this->dist = 0.0;
+    this->t = Temporizador();
 }
 
 Estado::Estado(vector<Vertice>* v){
     this->vec = v;
     this->calculaDist();
+    this->t = Temporizador();
 }
 
 Estado::Estado(const Estado& other){
@@ -16,6 +18,7 @@ Estado::Estado(const Estado& other){
     else this->vec = nullptr;
     
     this->dist = other.dist;
+    this->t = other.t;
 }
 
 Estado::~Estado(){
@@ -44,6 +47,7 @@ Estado Estado::geraUmMelhor(){
     mt19937 gen(rd());
     uniform_int_distribution<int> distr(0, m->size()-1);
     int i1, i2;
+    double dt = 0.0;
     while(true){
         i1 = distr(gen);
         do{
@@ -54,11 +58,13 @@ Estado Estado::geraUmMelhor(){
         (*m)[i1] = (*m)[i2];
         (*m)[i2] = aux;
         melhor.calculaDist();
+        dt += this->t.getDeltaT();
         if(this->dist <= melhor.dist){
             aux = (*m)[i1];
             (*m)[i1] = (*m)[i2];
             (*m)[i2] = aux;
         }else break;
+        if(dt > 10.0) break;
     }
 
     return melhor;

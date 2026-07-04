@@ -42,6 +42,35 @@ void Vertice::soma(double x, double y, double z){
     this->z += z;
 }
 
+void Vertice::versor(){
+    float m = modulo();
+    x /= m;
+    y /= m;
+    z /= m;
+}
+
+double Vertice::modulo(){
+    return sqrt(x*x+y*y+z*z);
+}
+
+void Vertice::rotacionaX(float angulo){
+    float yr, zr;
+    double anguloRad = angulo* 3.14159265359/180.0;
+    yr =  y*cos(anguloRad) - z*sin(anguloRad);
+    zr =  y*sin(anguloRad) + z*cos(anguloRad);
+    y = yr;
+    z = zr;
+}
+
+void Vertice::rotacionaY(float angulo){
+    float xr, zr;
+    double anguloRad = angulo* 3.14159265359/180.0;
+    xr =  x*cos(anguloRad) + z*sin(anguloRad);
+    zr = -x*sin(anguloRad) + z*cos(anguloRad);
+    x = xr;
+    z = zr;
+}
+
 void Vertice::rotacionaZ(float angulo){
     float xr, yr;
     //cout << "Angulo: " << angulo << " ";
@@ -53,43 +82,11 @@ void Vertice::rotacionaZ(float angulo){
     //imprime();
 }
 
-
-void Vertice::rotacionaY(float angulo){
-    float xr, zr;
-    double anguloRad = angulo* 3.14159265359/180.0;
-    xr =  x*cos(anguloRad) + z*sin(anguloRad);
-    zr = -x*sin(anguloRad) + z*cos(anguloRad);
-    x = xr;
-    z = zr;
-}
-
-void Vertice::rotacionaX(float angulo){
-    float yr, zr;
-    double anguloRad = angulo* 3.14159265359/180.0;
-    yr =  y*cos(anguloRad) - z*sin(anguloRad);
-    zr =  y*sin(anguloRad) + z*cos(anguloRad);
-    y = yr;
-    z = zr;
-}
-double Vertice::modulo(){
-    return sqrt(x*x+y*y+z*z);
-}
-
-void Vertice::versor(){
-    float m = modulo();
-    x /= m;
-    y /= m;
-    z /= m;
-}
-
-
-Vertice ObtemMaximo(Vertice P1, Vertice P2){
-    Vertice Max;
-    
-    Max.x = (P2.x > P1.x) ? P2.x : P1.x;
-    Max.y = (P2.y > P1.y) ? P2.y : P1.y;
-    Max.z = (P2.z > P1.x) ? P2.z : P1.z;
-    return Max;
+bool Vertice::operator==(const Vertice& other) const{
+    if(this->x != other.x) return false;
+    if(this->y != other.y) return false;
+    if(this->z != other.z) return false;
+    return true;
 }
 
 Vertice ObtemMinimo(Vertice P1, Vertice P2){
@@ -101,11 +98,13 @@ Vertice ObtemMinimo(Vertice P1, Vertice P2){
     return Min;
 }
 
-bool operator==(Vertice P1, Vertice P2){
-    if (P1.x != P2.x) return false;
-    if (P1.y != P2.y) return false;
-    if (P1.z != P2.z) return false;
-    return true;
+Vertice ObtemMaximo(Vertice P1, Vertice P2){
+    Vertice Max;
+    
+    Max.x = (P2.x > P1.x) ? P2.x : P1.x;
+    Max.y = (P2.y > P1.y) ? P2.y : P1.y;
+    Max.z = (P2.z > P1.x) ? P2.z : P1.z;
+    return Max;
 }
 
 Vertice operator+(Vertice P1, Vertice P2){
@@ -197,28 +196,14 @@ bool HaInterseccao(Vertice k, Vertice l, Vertice m, Vertice n){
 // **********************************************************************
 //
 // **********************************************************************
-void resetContadorInt(){
-    ContadorInt = 0;
-}
-// **********************************************************************
-//
-// **********************************************************************
 long int getContadorInt(){
     return ContadorInt;
 }
-
-
 // **********************************************************************
 //
 // **********************************************************************
-double calculaDistancia(Vertice P, Vertice Q){
-    float dx, dy, dz;
-    
-    dx = P.x - Q.x;
-    dy = P.y - Q.y;
-    dz = P.z - Q.z;
-
-    return sqrt(dx*dx+dy*dy+dz*dz);
+void resetContadorInt(){
+    ContadorInt = 0;
 }
 
 // **********************************************************************
@@ -234,4 +219,17 @@ int lado(Vertice P1, Vertice P2, Vertice A){
     if (V3.z < 0)
         return DIREITA;
     return SOBRE;
+}
+
+// **********************************************************************
+//
+// **********************************************************************
+double calculaDistancia(Vertice P, Vertice Q){
+    float dx, dy, dz;
+    
+    dx = P.x - Q.x;
+    dy = P.y - Q.y;
+    dz = P.z - Q.z;
+
+    return sqrt(dx*dx+dy*dy+dz*dz);
 }

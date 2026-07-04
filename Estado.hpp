@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Vertice.hpp"
+#include "Temporizador.hpp"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ class Estado{
     public:
     vector<Vertice>* vec;
     long double dist;
+    Temporizador t;
     Estado();
     Estado(vector<Vertice>* v);
     Estado(const Estado& other);
