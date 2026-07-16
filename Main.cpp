@@ -14,12 +14,13 @@ Ponto p2 = Ponto(25.0f, -25.0f);
 Ponto p3 = Ponto(25.0f, 25.0f);
 Ponto p4 = Ponto(-25.0f, 25.0f);
 Circulo circ = Circulo(Ponto(0.0f,0.0f), 10.0);*/
+Vertice deslocamento = Vertice((30.0 + 6.0/64.0), (51.0 + 5.0/32.0));
 Estado estado;
 Estado prox;
 
 void init(){
-    estado = Estado(leArq("stops.txt", 550u));
-    cout << "arquivo lido" << endl;
+    estado = Estado(leArq("stops.txt", 6000u));
+    cout << estado.vec->size() << " linhas lidas" << endl;
 
     glClearColor(0.5f, 0.5f, 1.0f, 1.0f); // Fundo neutro escuro para nao contaminar paredes/teto
 
@@ -102,7 +103,7 @@ void reshape(int w, int h){
     // Define a area a ser ocupada pela area OpenGL dentro da Janela
     glViewport(0, 0, w, h);
     // Define os limites logicos da area OpenGL dentro da Janela
-    glOrtho(-54.0, 53.0, -54.0, 53.0, 0.0, 10.0); // Projecao paralela Orthografica
+    glOrtho(-.25-deslocamento.x, .25-deslocamento.x, -.25-deslocamento.y, .25-deslocamento.y, 0.0, 10.0); // Projecao paralela Orthografica
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

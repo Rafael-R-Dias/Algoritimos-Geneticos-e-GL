@@ -27,13 +27,15 @@ vector<Vertice>* leArq(const char* fname, unsigned int limit){
         getline(ss, coluna, ',');
         //cout << "  x: " << coluna;
         x = stod(coluna);
-        x += (30.0 + 6.0/64.0);
-        x *= 350.0;
+        if(x < -20000.0) continue;
+        //x += (30.0 + 6.0/64.0);
+        //x *= 1.0;
         getline(ss, coluna, ',');
         //cout << "  y: " << coluna << endl;
         y = stod(coluna);
-        y += (51.0 + 5.0/32.0);
-        y *= 350.0;
+        if(y < -20000.0) continue;
+        //y += (51.0 + 5.0/32.0);
+        //y *= 1.0;
         v->push_back(Vertice(x,y));
         if(v->size() >= limit) break;
     }
